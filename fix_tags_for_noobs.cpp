@@ -6,17 +6,16 @@
 
 using namespace std;
 
-auto queryMap(int tag_number, std::string tag_value) {
+auto queryMap(int tag_number, std::string tag_value) 
+{
     auto [tag_name, tag_value_name] = get_tag_name_and_value(tag_number, tag_value);
-    //if (tag_name == "ERROR") {
-        //std::cout << "Tag number not found." << std::endl;
-    //    return 1;
-    //}
 
-	if (tag_value_name == "") {
+	if (tag_value_name == "") 
+    {
 		std::cout << tag_number << ",(" << tag_name << "),=," << tag_value << std::endl;
 	}
-	else {
+	else 
+    {
 		std::cout << tag_number << ",(" << tag_name << "),=," << tag_value << " (" << tag_value_name << ")" << std::endl;
 	}
 }
