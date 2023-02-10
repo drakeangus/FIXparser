@@ -75,4 +75,8 @@ Which lets the parse function take arguemnts OR standin
 $ echo '167=CS|35=F' | parse
 167  (SecurityType)  =  CS (COMMON_STOCK)
 35   (MsgType)       =  F (ORDER_CANCEL_REQUEST)
+
+$ parse '167=CS|35=F'
+167  (SecurityType)  =  CS (COMMON_STOCK)
+35   (MsgType)       =  F (ORDER_CANCEL_REQUEST)
 ```
