@@ -1,6 +1,6 @@
 You'll need a FIX dictionary xml to create the mapping
 
-run the `generate.sh` script with the path to the fix dictionary as an argument eg. `./general.sh CustomFIX44.xml`
+run the `generate.sh` script with the path to the fix dictionary as an argument eg. `./generate.sh CustomFIX44.xml`
 
 This will generate a header file with the custom mapping and compile `fix_tags_for_noobs.cpp` into an executable `fix_tags_for_noobs`
 
@@ -22,8 +22,10 @@ To easily queery tags from the command line e.g.
 ```
 $ parse 59
 59  (TimeInForce)  =  
+
 $ parse 59=1
 59  (TimeInForce)  =  1 (GOOD_TILL_CANCEL)
+
 $ parse '59=1|40=1'
 59  (TimeInForce)  =  1 (GOOD_TILL_CANCEL)
 40  (OrdType)      =  1 (MARKET)
@@ -64,8 +66,7 @@ parse '8=FIX.4.4|9=418|35=D|34=3|49=SEB|52=20230208-18:24:40.160|56=FLEX|122=202
 10     (CheckSum)                                     =  001
 ```
 
-
-Even better usecases include
+More sophisticated use cases include:
 ```
 parse() { [[ -p /dev/stdin ]] && input=$(cat -) || input="$@"; [[ -z $input ]] && return 1; echo $input | fix_tags_for_noobs | column -t -s ',' ;}
 ```
