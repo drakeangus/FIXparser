@@ -18,7 +18,7 @@ This means you can use an alias like
 ```
 parse() { echo "$@" | fix_tags_for_noobs | column -t -s ',';}
 ```
-To easily queery tags from the command line e.g.
+To easily query tags from the command line e.g.
 ```
 $ parse 59
 59  (TimeInForce)  =  
