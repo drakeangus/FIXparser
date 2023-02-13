@@ -10,37 +10,37 @@ auto queryMap(int tag_number, std::string tag_value)
 {
     auto [tag_name, tag_value_name] = get_tag_name_and_value(tag_number, tag_value);
 
-	if (tag_value_name == "") 
+    if (tag_value_name == "") 
     {
-		std::cout << tag_number << ",(" << tag_name << "),=," << tag_value << std::endl;
-	}
-	else 
+        std::cout << tag_number << ",(" << tag_name << "),=," << tag_value << std::endl;
+    }
+    else 
     {
-		std::cout << tag_number << ",(" << tag_name << "),=," << tag_value << " (" << tag_value_name << ")" << std::endl;
-	}
+        std::cout << tag_number << ",(" << tag_name << "),=," << tag_value << " (" << tag_value_name << ")" << std::endl;
+    }
 }
 
 int main() 
 {
-	for (std::string input; std::getline(std::cin, input);) 
+    for (std::string input; std::getline(std::cin, input);) 
     {
-		if (input.empty()) 
+        if (input.empty()) 
         {
             // do nothing
-			continue;
-		}
-		else 
+            continue;
+        }
+        else 
         {
             // ensure the string ends in '|'
-			if (input.back() != '|'){
-				input.push_back('|');
-			}
+            if (input.back() != '|'){
+                input.push_back('|');
+            }
 
-			size_t pos_eq;
-			size_t pos_del;
+            size_t pos_eq;
+            size_t pos_del;
             string tag;
             string value;
-			while (true) 
+            while (true) 
             {
                 pos_eq = input.find("=");
                 pos_del = input.find("|");
@@ -50,11 +50,11 @@ int main()
 
                 // if the first character of the string is "|" or "=" remove it
                 // We need this in the case of darkpool orders and silly users					
-				if (input[0] == '|') 
+                if (input[0] == '|') 
                 { 
-					input.erase(0,1);
-					continue;				
-				}
+                    input.erase(0,1);
+                    continue;				
+                }
                 if (input[0] == '=') 
                 {
                     // if the fist character is '=' the tag is garbage, remove everything up to the delimiter '|'
@@ -66,7 +66,7 @@ int main()
                 // 15|16=abc|...
                 // set the tag number delimiter ('=') to the pos of the next '|'
                 if ( pos_del < pos_eq) 
-				{
+                {
                     pos_eq = pos_del;
                 }
                 else 
@@ -91,7 +91,7 @@ int main()
                 }
 
                 input.erase(0, pos_del+1);
-                
+
                 if (input.length() == 0) 
                 {
                     break;
