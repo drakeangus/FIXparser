@@ -1,6 +1,11 @@
 #!/bin/bash
 
+#input file 
 [[ -z "$1" ]] &&  printf "Error, must specify fix dictionary. \nExample: ./generate.sh FIX44.xml\n" && exit || fix_dictionary="$1"  
+#let the user specify a name for the executable (useful if compiling multiple dictionaries)
+[[ -z "$2" ]] && executable_file="fix_tags_for_noobs" || executable_file="$2"  
+
+generate_header() {
 header_file="fix_tags_for_noobs.h"
 # i'll put the second more complicated map in a tmp file and cat it in later
 > tmp_map_file
@@ -20,7 +25,6 @@ const std::map<int, std::string> tag_name_mapping = {" > $header_file
 
 
 first_loop='true'
-#fix_dictionary="super_small.xml"
 while read l; do
 
     if [[ $l =~ $tag_num_regex ]]; then
@@ -74,6 +78,12 @@ std::pair<std::string, std::string> get_tag_name_and_value(int tag_number, const
 }
 
 #endif // TAG_MAP_H' >> $header_file
+return 0;
+} #generate_header
 
+printf "Importing map from $fix_dictionary. Please wait\n"
+time generate_header && printf "Complete.\n\nCompiling program to \"$PWD/$executable_file\". Please wait.\n"
 
-g++ -std=c++17 fix_tags_for_noobs.cpp -o fix_tags_for_noobs
+time g++ -std=c++17 fix_tags_for_noobs.cpp -o $executable_file
+
+printf "Complete.\n"

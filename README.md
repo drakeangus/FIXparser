@@ -4,8 +4,9 @@ run the `generate.sh` script with the path to the fix dictionary as an argument 
 
 This will generate a header file with the custom mapping and compile `fix_tags_for_noobs.cpp` into an executable `fix_tags_for_noobs`
 
+(use an optional second argument to specify the path to the output executable file eg, `./generate.sh CustomFIX44.xml /home/noob/scripts/fix_tags_for_noobs44`)
 
-`fix_tags_for_noobs` takes stdin and outputs a csv output 
+The `fix_tags_for_noobs` executable takes stdin and outputs a csv output 
 eg.
 
 ```
@@ -70,7 +71,7 @@ More sophisticated use cases include:
 ```
 parse() { [[ -p /dev/stdin ]] && input=$(cat -) || input="$@"; [[ -z $input ]] && return 1; echo $input | fix_tags_for_noobs | column -t -s ',' ;}
 ```
-Which lets the parse function take arguemnts OR standin
+Which lets the parse function take arguemnts OR stdin
 ```
 $ echo '167=CS|35=F' | parse
 167  (SecurityType)  =  CS (COMMON_STOCK)
@@ -80,3 +81,4 @@ $ parse '167=CS|35=F'
 167  (SecurityType)  =  CS (COMMON_STOCK)
 35   (MsgType)       =  F (ORDER_CANCEL_REQUEST)
 ```
+
