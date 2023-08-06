@@ -18,11 +18,7 @@ enum_regex='^.*<value enum="(.*)" description="(.*)".*$'
 echo "#ifndef TAG_MAP_H
 #define TAG_MAP_H
 
-#include <map>
-#include <string>
-
 const std::map<int, std::string> tag_name_mapping = {" > $header_file
-
 
 first_loop='true'
 while read l; do
@@ -57,26 +53,6 @@ cat tmp_map_file >> $header_file
 rm -f tmp_map_file
 
 printf '
-std::pair<std::string, std::string> get_tag_name_and_value(int tag_number, const std::string& tag_value) {    
-    auto name_it = tag_name_mapping.find(tag_number);
-    if (name_it == tag_name_mapping.end()) {
-        return {"NotInDict", ""};
-    }
-    auto name = name_it->second;
-
-    auto value_it = tag_value_mapping.find(tag_number);
-    if (value_it == tag_value_mapping.end()) {
-        return {name, ""};
-    }
-    auto value_map = value_it->second;
-
-    auto value_name_it = value_map.find(tag_value);    
-    if (value_name_it == value_map.end()) {
-        return {name, ""};
-    }
-    return {name, value_name_it->second};
-}
-
 #endif // TAG_MAP_H' >> $header_file
 return 0;
 } #generate_header
@@ -86,4 +62,5 @@ time generate_header && printf "Complete.\n\nCompiling program to \"$PWD/$execut
 
 time g++ -std=c++17 fix_tags_for_noobs.cpp -o $executable_file
 
-printf "Complete.\n"
+printf 'Complete.\nSuggested usage:\nAdd the executable to your path and add the following funtion to your .bashrc\n'
+printf 'parse() { [[ -p /dev/stdin ]] && input=$(cat -) || input="$@"; [[ -z $input ]] && return 1; echo $input | fix_tags_for_noobs | column -t -s ","; }\n'
